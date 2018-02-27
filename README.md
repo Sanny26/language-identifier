@@ -10,4 +10,26 @@ Implementation of this paper:
 Dataset used for experiments:
 > https://github.com/xprogramer/DLI32-corpus
 
-The above link provides two folders DLI32 AND DLI32-2. DLI32 used as train set to produce language profiles for languages.
+The above link provides two folders DLI32 and DLI32-2. DLI32 used as train set to produce language profiles for languages.
+
+When tested on DLI32-2, achieved an accuracy of 60% for language profiles of length 50.
+
+
+#### Usage
+
+For training:
+- Download the datasets. Move the dataset and the code into one folder.
+
+- To train, run ```python identifier.py ```
+
+This generates ```lprofiles.pkl``` pickle file which contains the language profiles for 32 langauges.
+
+- To test, run ```python test.py```
+
+
+
+Requirements
+-Python
+-NLTK
+
+
