@@ -8,7 +8,7 @@ import io
 import pickle
 
 counter = dict()
-top_k_val = 50
+top_k_val = 300
 
 def get_ngrams(text, n=2):
     words = word_tokenize(text)
@@ -25,7 +25,8 @@ def get_file_lprofile(fname):
 
     with io.open(fname, 'r', encoding='utf8') as f:
         for line in f:
-            counter += get_ngrams(line)
+            for n in range(2,6): 
+                counter += get_ngrams(line, n)
             
     return counter
 
@@ -35,8 +36,7 @@ def dump_lprofiles():
     l_profiles = dict()
     for i in range(32):
         l_profiles[i] = [each[0] for each in counter[i].most_common(top_k_val)]
-
-    pickle.dump(l_profiles, open('lprofiles.txt', 'wb'))
+    pickle.dump(l_profiles, open('lprofiles.pkl', 'wb'))
         
 
 if __name__ =='__main__':
@@ -47,16 +47,15 @@ if __name__ =='__main__':
     for name in files:
         lan_id = int(name.split('.')[0])
         if lan_id%10 == 0:
-           label = floor(lan_id/10) -1;
+           label = int(floor(lan_id/10) -1);
         else:
-           label = floor(lan_id/10)    
+           label = int(floor(lan_id/10))    
         
         fcounter = get_file_lprofile(dr_path+name)
         if label in counter.keys():
             counter[label] += fcounter
         else:
             counter[label] = fcounter
-
     dump_lprofiles()
 
     
